@@ -12,8 +12,8 @@ import numpy as np
 from sklearn.metrics import recall_score
 import glob 
 
-ImageTest = glob.glob('Test/*.png')
-ImagesLabel = glob.glob('Test/Labels/*.png')
+ImageTest = glob.glob('Test2/Images/*.png')
+ImagesLabel = glob.glob('Test2/Labels/*.png')
 
 y_all_train = np.zeros((len(ImageTest), 256, 256, 1))
 
@@ -32,12 +32,12 @@ FN = 0
 
 val_y = y_all_train
 
-save_dir = 'Result/'
+save_dir = 'Result1/'
 
 for i, imageFile in enumerate(ImageTest):
     
     image = imageio.imread(imageFile)
-    folder_1,imageName = imageFile.split("/")
+    folder_1,folder2,imageName = imageFile.split("/")
     image = np.reshape(image, (1, 256, 256, 3))
     image = image / 255.
    
