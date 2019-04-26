@@ -32,7 +32,7 @@ FN = 0
 
 val_y = y_all_train
 
-save_dir = 'Result1/'
+save_dir = 'Result2/'
 
 for i, imageFile in enumerate(ImageTest):
     
