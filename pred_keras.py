@@ -37,11 +37,12 @@ save_dir = 'Result/'
 for i, imageFile in enumerate(ImageTest):
     
     image = imageio.imread(imageFile)
-    folder_1,imageName = imageFile.split("/")
+    folder_0,folder_1,imageName = imageFile.split("/")
     image = np.reshape(image, (1, 256, 256, 3))
     image = image / 255.
-   
-    result = model.predict([image, np.ones((1, 256, 256, 1))])
+    print(image) 
+    #result = model.predict([image, np.ones((1, 256, 256, 1))])
+    result =  model.predict([image])
     result = np.round(result)
     
     current_TP = np.count_nonzero(result * val_y[i, :, :, :])

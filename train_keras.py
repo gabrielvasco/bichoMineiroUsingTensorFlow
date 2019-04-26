@@ -109,7 +109,7 @@ net = tf.keras.layers.Conv2D(8, (3, 3), activation='relu', padding = 'same', ker
 net = tf.keras.layers.Conv2D(1, (3, 3), activation='sigmoid', padding = 'same', bias_initializer='zeros')(net)
 
 inp_mask = tf.keras.layers.Input((256, 256, 1))
-net = tf.keras.layers.Multiply()([net, inp_mask])
+#net = tf.keras.layers.Multiply()([net, inp_mask])
 
 model = tf.keras.models.Model(inputs=[inp, inp_mask], outputs = net)
 
@@ -140,7 +140,7 @@ for i in range(epochs):
     for j in range(train_x.shape[0]):
         loss_weights[j,...] = resize(loss_pblock[j, ...], (256, 256), mode='reflect', order = 0)
         
-    train_y_m = train_y * loss_weights
+    train_y_m = train_y #* loss_weights
 
     model.fit([train_x, loss_weights], train_y_m, 10, 1, shuffle=True)
     
