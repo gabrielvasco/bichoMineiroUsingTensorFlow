@@ -32,7 +32,7 @@ FN = 0
 
 val_y = y_all_train
 
-save_dir = 'Result/'
+save_dir = 'Result1/'
 
 for i, imageFile in enumerate(ImageTest):
     
@@ -40,7 +40,7 @@ for i, imageFile in enumerate(ImageTest):
     folder_0,folder_1,imageName = imageFile.split("/")
     image = np.reshape(image, (1, 256, 256, 3))
     image = image / 255.
-    print(image) 
+    #print(image) 
     #result = model.predict([image, np.ones((1, 256, 256, 1))])
     result =  model.predict([image])
     result = np.round(result)

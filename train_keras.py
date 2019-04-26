@@ -120,7 +120,7 @@ train_x = x_all_train
 val_x = x_all_val
 train_y = y_all_train
 val_y = y_all_val
-epochs = 30
+epochs = 100
 n = 30
 x = 0
 
@@ -142,7 +142,7 @@ for i in range(epochs):
         
     train_y_m = train_y #* loss_weights
 
-    model.fit([train_x, loss_weights], train_y_m, 10, 1, shuffle=True)
+    model.fit([train_x, loss_weights], train_y_m, 4, 1, shuffle=True)
     
     train_pred = model.predict([train_x, test_mask_train])
     
