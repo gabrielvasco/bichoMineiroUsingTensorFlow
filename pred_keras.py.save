@@ -12,8 +12,8 @@ import numpy as np
 from sklearn.metrics import recall_score
 import glob 
 
-ImageTest = glob.glob('TesteAll/Images/*.png')
-ImagesLabel = glob.glob('TesteAll/Labels/*.png')
+ImageTest = glob.glob('Teste/Images/*.png')
+ImagesLabel = glob.glob('Teste/Labels/*.png')
 
 y_all_train = np.zeros((len(ImageTest), 256, 256, 1))
 
@@ -32,7 +32,7 @@ FN = 0
 
 val_y = y_all_train
 
-save_dir = 'ResultAll/'
+save_dir = 'Result/'
 
 for i, imageFile in enumerate(ImageTest):
     
@@ -41,8 +41,7 @@ for i, imageFile in enumerate(ImageTest):
     image = np.reshape(image, (1, 256, 256, 3))
     image = image / 255.
     #print(image) 
-    #result = model.predict([image, np.ones((1, 256, 256, 1))])
-    result =  model.predict([image])
+    result = model.predict(image)
     result = np.round(result)
     
     current_TP = np.count_nonzero(result * val_y[i, :, :, :])
