@@ -11,9 +11,10 @@ import imageio
 import numpy as np
 from sklearn.metrics import recall_score
 import glob 
+import matplotlib.pyplot as plt
 
-ImageTest = glob.glob('TesteAll/Images/*.png')
-ImagesLabel = glob.glob('TesteAll/Labels/*.png')
+ImageTest = glob.glob('Teste1/Images/*.png')
+ImagesLabel = glob.glob('Teste1/Labels/*.png')
 
 y_all_train = np.zeros((len(ImageTest), 256, 256, 1))
 
@@ -32,7 +33,7 @@ FN = 0
 
 val_y = y_all_train
 
-save_dir = 'ResultAll/'
+save_dir = 'ResultTeste/'
 
 for i, imageFile in enumerate(ImageTest):
     
@@ -49,10 +50,7 @@ for i, imageFile in enumerate(ImageTest):
     current_TN = np.count_nonzero((result - 1) * (val_y[i, :, :, :] - 1))
     current_FP = np.count_nonzero(result * (val_y[i, :, :, :] - 1))
     current_FN = np.count_nonzero((result - 1) * val_y[i, :, :, :])
-    print("TP: " + str(current_TP))
-    print("FP: " + str(current_FP))
-    print("TN: " + str(current_TN))
-    print("FN: " + str(current_FN))
+
     TP = TP + current_TP
     TN = TN + current_TN
     FP = FP + current_FP
@@ -66,7 +64,14 @@ for i, imageFile in enumerate(ImageTest):
     result_image = save_dir + imageName
     
     imageio.imsave(result_image, result[0, :, :, 0])
-
+    plt.figure()
+    plt.imshow(image[0, :, :, :])
+    plt.figure()
+    plt.imshow(result[0, :, :, 0] )
+    plt.figure()
+    #print(result > 0.5)
+    image[0, :, :, 1] = result[0, :, :, 0] > 0.5
+    plt.imshow(image[0, :, :, :])
 
 precision = TP / (TP + FP)
 recall = TP / (TP + FN)
@@ -85,12 +90,12 @@ print('Test Accuracy: %f' %(acc))
 print (result.shape)
 
 #Plot!!!
-import matplotlib.pyplot as plt
-plt.figure()
-plt.imshow(image[0, :, :, :])
-plt.figure()
-plt.imshow(result[0, :, :, 0])
-plt.figure()
-image[0, :, :, 1] = result[0, :, :, 0] > 127
-plt.imshow(image[0, :, :, :])
+#plt.figure()
+#plt.imshow(image[0, :, :, :])
+#plt.figure()
+#plt.imshow(result[1, :, :, 1] )
+#plt.figure()
+#print(result > 0.5)
+#image[0, :, :, 1] = result[0, :, :, 0] > 0.5
+#plt.imshow(image[0, :, :, :])
 
