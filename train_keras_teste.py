@@ -10,11 +10,11 @@ import imageio
 import numpy as np
 
 
-ImagesTrain = glob.glob('TrainSet/Images/*.png')
-LabelsTrain = glob.glob('TrainSet/Labels/*.png')
+ImagesTrain = glob.glob('TrainSetAll/Images/*.png')
+LabelsTrain = glob.glob('TrainSetAll/Labels/*.png')
 
-ImagesVal = glob.glob('Validation/Images/*.png')
-LabelsVal = glob.glob('Validation/Labels/*.png')
+ImagesVal = glob.glob('ValidationAll/Images/*.png')
+LabelsVal = glob.glob('ValidationAll/Labels/*.png')
 
 print(ImagesTrain[37] + ' == '+ LabelsTrain[37])
 print('1 This ^ should be the same.')
@@ -155,7 +155,7 @@ for i in range(epochs):
    
     if max_acc_val < val_acc:
         print('Best val found!!')
-        model.save('model.h5')
+        model.save('modelAll.h5')
         max_acc_val = val_acc
         x = 0
         
