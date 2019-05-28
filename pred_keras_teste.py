@@ -45,57 +45,29 @@ for i, imageFile in enumerate(ImageTest):
     #result = model.predict([image, np.ones((1, 256, 256, 1))])
     result =  model.predict([image])
     result = np.round(result)
-    
-    current_TP = np.count_nonzero(result * val_y[i, :, :, :])
-    current_TN = np.count_nonzero((result - 1) * (val_y[i, :, :, :] - 1))
-    current_FP = np.count_nonzero(result * (val_y[i, :, :, :] - 1))
-    current_FN = np.count_nonzero((result - 1) * val_y[i, :, :, :])
-
-    TP = TP + current_TP
-    TN = TN + current_TN
-    FP = FP + current_FP
-    FN = FN + current_FN
-    
-    total = current_TP + current_TN + current_FP + current_FN
-    
-    print('Total number: %d'  %(total))
-    print('Acc: %f'  %((current_TP + current_TN) / total))
-    
-    result_image = save_dir + imageName
-    
     imageio.imsave(result_image, result[0, :, :, 0])
+
+    result[0, :, :,  0] = result[0, :, :,  0] 
+    result_image = save_dir + imageName
+    image[0, :, :, 1] = result[0, :, :,  0]
+    plt.figure()
+    plt.imshow(result[0, :, :, 0])
+    plt.show()
+    
+    '''
     plt.figure()
     plt.imshow(image[0, :, :, :])
     plt.figure()
-    plt.imshow(result[0, :, :, 0] )
-    plt.figure()
-    #print(result > 0.5)
-    image[0, :, :, 1] = result[0, :, :, 0] > 0.5
+
+    image[0, :, :, 1] = result[0, :, :, 0] < 0.5
     plt.imshow(image[0, :, :, :])
 
-precision = TP / (TP + FP)
-recall = TP / (TP + FN)
-f1 = 2 * (precision * recall / (precision + recall))
-acc = (TP + TN) / (TP + TN + FP + FN)
 
-print('Precision >')
-print(precision)
-print('Recall >')
-print(recall)
-print('F-Measure >')
-print(f1)
-print('Test Accuracy: %f' %(acc))
-
-
-print (result.shape)
-
-#Plot!!!
-#plt.figure()
-#plt.imshow(image[0, :, :, :])
-#plt.figure()
-#plt.imshow(result[1, :, :, 1] )
-#plt.figure()
-#print(result > 0.5)
-#image[0, :, :, 1] = result[0, :, :, 0] > 0.5
-#plt.imshow(image[0, :, :, :])
-
+plt.figure()
+plt.imshow(image[0, :, :, :])
+plt.figure()
+plt.imshow(result[0, :, :, 0])
+plt.figure()
+image[0, :, :, 1] = result[0, :, :, 0] > 127
+plt.imshow(image[0, :, :, :])
+'''
